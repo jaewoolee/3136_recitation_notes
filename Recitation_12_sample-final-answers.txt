@@ -1,0 +1,104 @@
+[1]
+
+(a) 
+
+~/cs3136/lab1$ git status 
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	modified:   myadd.h
+#
+# Changed but not updated:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   Makefile
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	main
+#	main.o
+#	multiply.c
+#	myadd.o
+
+
+Untracked : main main.o multiply.c myadd.o
+
+Tracked unmodified : main.c myadd.c README.txt
+
+Tracked, modified, unstaged : Makefile 
+
+Tracked, modified, staged : myadd.h
+
+
+Grading: 2 points for each correctly classified file - 18pts total
+
+
+(b)
+
+    main: main.o myadd.o
+
+    main.o: main.c myadd.h
+
+    myadd.o: myadd.c myadd.h
+
+Grading: 2 points for each line - 6 points total
+
+  - main.o, main.c, myadd.c can be omitted.
+ 
+
+[2]
+
+(2.1) Merge sort     -> O(N log N)
+
+(2.2) Selection sort -> O(N ^ 2)
+
+(2.3) prepend()             -> O(1)
+
+(2.4) remove_front()        -> O(1)
+
+(2.5) find() in linked list -> O(N)
+
+(2.6) lookup() in BST -> O(log N)
+
+(2.7) insert() in BST -> O(log N)
+
+(2.8) height() in BST -> O(N)
+
+(2.9) Breadth-first search (BFS) -> O(N)
+
+(2.10) push_back() in the vector -> O(1)
+
+[3] 
+
+void traverse_inorder(BST *T, void (*f)(BST *))
+{
+    if (T) {
+        traverse_inorder(T->left, f);
+        f(T);
+        traverse_inorder(T->right, f);
+    }
+}
+
+void traverse_levelorder(BST *T, void (*f)(BST *))
+{
+    if (T) {
+        deque<BST*>  q;
+        q.push_back(T);
+
+        while (!q.empty()) {
+            
+            T = q.front();
+            q.pop_front();
+            f(T);
+
+            if (T->left)
+                q.push_back(T->left);
+
+            if (T->right)
+                q.push_back(T->right);
+        }
+    }
+}
